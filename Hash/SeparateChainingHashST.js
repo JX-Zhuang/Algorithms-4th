@@ -26,3 +26,13 @@ st.put('1234','4321');
 console.log(st.get('name'),st.get('age'),st.get('1234'));
 st.delete('1234')
 console.log(st.get('name'),st.get('age'),st.get('1234'));
+class LinearProbingHashST{
+    keys = [];
+    vals = [];
+    M = 16;
+    N;
+    constructor(){
+        this.keys = new Array(this.M);
+        this.vals = new Array(this.M);
+    }
+}
