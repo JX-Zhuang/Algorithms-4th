@@ -63,5 +63,6 @@ function testLinearProbingHashST() {
     st.put('age', 12);
     st.put('1234', '4321');
     console.log(st.get('name'), st.get('age'), st.get('1234'));
+    
 }
 testLinearProbingHashST();
