@@ -41,3 +41,4 @@ class Graph{
         return s;
     }
 }
+var g = new Graph(3);
