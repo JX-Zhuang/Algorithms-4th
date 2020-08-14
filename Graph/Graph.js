@@ -72,4 +72,41 @@ class DepthFirstSearch{
     }
 }
 var depthFirstSearch = new DepthFirstSearch(g,12);
-console.log(depthFirstSearch.count());
+// console.log(depthFirstSearch.count());
+class DepthFirstPaths{
+    marked = [];
+    edgeTo = [];
+    s;
+    constructor(g,s){
+        this.s = s;
+        this.dfs(g,s);
+    }
+    dfs(g,v){
+        console.log(g.adj(v))
+        this.marked[v] = true;
+        for(var w of g.adj(v)){
+            if(!this.marked[w]){
+                this.edgeTo[w] = v;
+                this.dfs(g,w);
+            }
+        }
+    }
+    hasPathTo(v){
+        return this.marked[v];
+    }
+    pathTo(v){
+        if(!this.hasPathTo(v)) return null;
+        var path = [];
+        console.log(this.edgeTo)
+        for(var x = v;x!=this.s;x = this.edgeTo[x]){
+            path.unshift(x);
+        }
+        path.unshift(this.s);
+        return path;
+    }
+}
+var g1 = new Graph(6);
+var arr = [[0, 5], [2, 4], [2, 3], [1, 2], [0, 1], [3, 4], [3, 5], [0, 2]];
+g1.init(arr);
+var dfpaths = new DepthFirstPaths(g1,0);
+console.log(dfpaths.pathTo(4));
