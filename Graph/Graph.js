@@ -51,62 +51,110 @@ var g = new Graph(13);
 var arr = [[0, 5], [4, 3], [0, 1], [9, 12], [6, 4], [5, 4], [0, 2], [11, 12], [9, 10], [0, 6], [7, 8], [9, 11], [5, 3]];
 g.init(arr);
 // console.log(g.toString())
-class DepthFirstSearch{
+class DepthFirstSearch {
     _marked = [];
     _count = 0;
-    constructor(g,s){
-        this.dfs(g,s);
+    constructor(g, s) {
+        this.dfs(g, s);
     }
-    dfs(g,v){
+    dfs(g, v) {
         this._marked[v] = true;
         this._count++;
-        for(const i of g.adj(v)){
-            if(!this._marked[i]) this.dfs(g,i);
+        for (const i of g.adj(v)) {
+            if (!this._marked[i]) this.dfs(g, i);
         }
     }
-    marked(w){
+    marked(w) {
         return this._marked[w];
     }
-    count(){
+    count() {
         return this._count;
     }
 }
-var depthFirstSearch = new DepthFirstSearch(g,12);
+var depthFirstSearch = new DepthFirstSearch(g, 12);
 // console.log(depthFirstSearch.count());
-class DepthFirstPaths{
+class DepthFirstPaths {
     marked = [];
     edgeTo = [];
     s;
-    constructor(g,s){
+    constructor(g, s) {
         this.s = s;
-        this.dfs(g,s);
+        this.dfs(g, s);
     }
-    dfs(g,v){
-        console.log(g.adj(v))
+    dfs(g, v) {
+        // console.log(g.adj(v))
         this.marked[v] = true;
-        for(var w of g.adj(v)){
-            if(!this.marked[w]){
+        for (var w of g.adj(v)) {
+            if (!this.marked[w]) {
                 this.edgeTo[w] = v;
-                this.dfs(g,w);
+                this.dfs(g, w);
             }
         }
     }
-    hasPathTo(v){
+    hasPathTo(v) {
         return this.marked[v];
     }
-    pathTo(v){
-        if(!this.hasPathTo(v)) return null;
+    pathTo(v) {
+        if (!this.hasPathTo(v)) return null;
         var path = [];
-        console.log(this.edgeTo)
-        for(var x = v;x!=this.s;x = this.edgeTo[x]){
+        // console.log(this.edgeTo)
+        for (var x = v; x != this.s; x = this.edgeTo[x]) {
             path.unshift(x);
         }
         path.unshift(this.s);
         return path;
     }
 }
-var g1 = new Graph(6);
-var arr = [[0, 5], [2, 4], [2, 3], [1, 2], [0, 1], [3, 4], [3, 5], [0, 2]];
-g1.init(arr);
-var dfpaths = new DepthFirstPaths(g1,0);
-console.log(dfpaths.pathTo(4));
+function testDFS() {
+    var g1 = new Graph(6);
+    var arr = [[0, 5], [2, 4], [2, 3], [1, 2], [0, 1], [3, 4], [3, 5], [0, 2]];
+    g1.init(arr);
+    var dfpaths = new DepthFirstPaths(g1, 0);
+    console.log(dfpaths.pathTo(3));
+}
+class BreadthFirstPaths {
+    marked = [];
+    edgeTo = [];
+    s;
+    constructor(g, s) {
+        this.s = s;
+        this.bfs(g, s);
+    }
+    bfs(g, s) {
+        var queue = [];
+        this.marked[s] = true;
+        queue.push(s);
+        while (queue.length!=0) {
+            var v = queue.shift();
+            for (var w of g.adj(v)) {
+                if (!this.marked[w]) {
+                    this.edgeTo[w] = v;
+                    this.marked[w] = true;
+                    queue.push(w);
+                }
+            }
+        }
+    }
+    hasPathTo(v) {
+        return this.marked[v];
+    }
+    pathTo(v) {
+        if (!this.hasPathTo(v)) return null;
+        var path = [];
+        // console.log(this.edgeTo)
+        for (var x = v; x != this.s; x = this.edgeTo[x]) {
+            path.unshift(x);
+        }
+        path.unshift(this.s);
+        return path;
+    }
+}
+function testBFS() {
+    var g1 = new Graph(6);
+    var arr = [[0, 5], [2, 4], [2, 3], [1, 2], [0, 1], [3, 4], [3, 5], [0, 2]];
+    g1.init(arr);
+    var dfpaths = new BreadthFirstPaths(g1, 0);
+    console.log(dfpaths.pathTo(3));
+}
+testDFS();
+testBFS();
