@@ -47,10 +47,12 @@ class Graph {
         return s;
     }
 }
-var g = new Graph(13);
-var arr = [[0, 5], [4, 3], [0, 1], [9, 12], [6, 4], [5, 4], [0, 2], [11, 12], [9, 10], [0, 6], [7, 8], [9, 11], [5, 3]];
-g.init(arr);
-// console.log(g.toString())
+function testGraph() {
+    var g = new Graph(13);
+    var arr = [[0, 5], [4, 3], [0, 1], [9, 12], [6, 4], [5, 4], [0, 2], [11, 12], [9, 10], [0, 6], [7, 8], [9, 11], [5, 3]];
+    g.init(arr);
+    console.log(g.toString())
+}
 class DepthFirstSearch {
     _marked = [];
     _count = 0;
@@ -71,7 +73,7 @@ class DepthFirstSearch {
         return this._count;
     }
 }
-var depthFirstSearch = new DepthFirstSearch(g, 12);
+// var depthFirstSearch = new DepthFirstSearch(g, 12);
 // console.log(depthFirstSearch.count());
 class DepthFirstPaths {
     marked = [];
@@ -124,7 +126,7 @@ class BreadthFirstPaths {
         var queue = [];
         this.marked[s] = true;
         queue.push(s);
-        while (queue.length!=0) {
+        while (queue.length != 0) {
             var v = queue.shift();
             for (var w of g.adj(v)) {
                 if (!this.marked[w]) {
@@ -156,5 +158,47 @@ function testBFS() {
     var dfpaths = new BreadthFirstPaths(g1, 0);
     console.log(dfpaths.pathTo(3));
 }
-testDFS();
-testBFS();
+// testDFS();
+// testBFS();
+
+// 连通分量 
+class CC {
+    marked = [];
+    _id = [];
+    count = 0;
+    constructor(g) {
+        for (var i = 0; i < g.V(); i++) {
+            if (!this.marked[i]) {
+                this.dfs(g, i);
+                this.count++;
+            }
+        }
+    }
+    dfs(g, v) {
+        this.marked[v] = true;
+        this._id[v] = this.count;
+        for (var w of g.adj(v)) {
+            if (!this.marked[w]) {
+                this.dfs(g, w);
+            }
+        }
+    }
+    connected(v, w) {
+        return this._id[v] == this._id[w];
+    }
+    id(v) {
+        return this._id[v];
+    }
+    count() {
+        return this.count;
+    }
+}
+function testCC() {
+    var g = new Graph(13);
+    var arr = [[0, 5], [4, 3], [0, 1], [9, 12], [6, 4], [5, 4], [0, 2], [11, 12], [9, 10], [0, 6], [7, 8], [9, 11], [5, 3]];
+    g.init(arr);
+    console.log(g.toString());
+    var cc = new CC(g);
+    console.log(cc._id)
+}
+testCC();
