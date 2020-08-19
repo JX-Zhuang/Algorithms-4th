@@ -202,3 +202,48 @@ function testCC() {
     console.log(cc._id)
 }
 testCC();
+class Cycle {
+    marked = [];
+    _hasCycle = false;
+    constructor(g) {
+        for (var i = 0; i < g.V(); i++) {
+            if (!this.marked[i]) {
+                dfs(g, s, s);
+            }
+        }
+    }
+    dfs(g, v, u) {
+        this.marked[v] = true;
+        for (var w of g.adj(v)) {
+            if (!this.marked[w]) {
+                this.dfs(g, w, v);
+            } else if (u == w) this._hasCycle = true;
+        }
+    }
+    hasCycle() {
+        return this._hasCycle;
+    }
+}
+class TwoColor {
+    marked = [];
+    color = [];
+    isTwoColorable = true;
+    constructor(g) {
+        for (var i = 0; i < g.V(); i++) {
+            if (!this.marked[i])
+                this.dfs(g, i);
+        }
+    }
+    dfs(g, v) {
+        this.marked[v] = true;
+        for (var w of g.adj(v)) {
+            if (!this.marked[w])
+                this.dfs(g, w);
+            else if (this.color[w] == this.color[v])
+                this.isTwoColorable = false;
+        }
+    }
+    isBipartite() {
+        return this.isTwoColorable;
+    }
+}
