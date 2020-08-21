@@ -201,7 +201,7 @@ function testCC() {
     var cc = new CC(g);
     console.log(cc._id)
 }
-testCC();
+// testCC();
 class Cycle {
     marked = [];
     _hasCycle = false;
@@ -247,3 +247,64 @@ class TwoColor {
         return this.isTwoColorable;
     }
 }
+
+class Digraph {
+    _V;
+    _E = 0;
+    _adj = [];
+    constructor(v) {
+        this._V = v;
+        for (var i = 0; i < v; i++) {
+            this._adj[i] = [];
+        }
+    }
+    V() {
+        return this._V;
+    }
+    E() {
+        return this._E;
+    }
+    init(arr) {
+        for (const item of arr) {
+            const [v, w] = item;
+            this.addEdge(v, w);
+        }
+    }
+    addEdge(v, w) {
+        this._adj[v].unshift(w);
+        this._E++;
+    }
+    adj(v) {
+        return this._adj[v];
+    }
+    reverse() {
+        var r = new Digraph(this._V);
+        for (var v = 0; v < this._V; v++) {
+            for (var w of this.adj(v)) {
+                r.addEdge(w, v);
+            }
+        }
+        return r;
+    }
+    //对象的字符串表示
+    toString() {
+        var s = `${this._V} vertices, ${this._E} edges\n`;
+        for (var v = 0; v < this._V; v++) {
+            s += `${v}: `;
+            for (var w of this._adj[v]) {
+                s += `${w} `;
+            }
+            s += '\n';
+        }
+        return s;
+    }
+}
+function testDigraph() {
+    var g = new Digraph(13);
+    var arr = [[4, 2], [2, 3], [3, 2], [6, 0], [0, 1], [2, 0], [11, 12], [12, 9], [9, 10], [9, 11], [8, 9], [10, 12], [11, 4], [4, 3], [3, 5], [7, 8], [8, 7], [5, 4], [0, 5], [6, 4], [6, 9], [7, 6]];
+    g.init(arr);
+    // console.log(g.toString());
+    var g1 = g.reverse();
+    console.log(g1.toString()); 
+}
+testDigraph();
