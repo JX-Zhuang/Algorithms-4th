@@ -305,6 +305,27 @@ function testDigraph() {
     g.init(arr);
     // console.log(g.toString());
     var g1 = g.reverse();
-    console.log(g1.toString()); 
+    console.log(g1.toString());
 }
-testDigraph();
+// testDigraph();
+class DirectedDFS {
+    _marked = [];
+    constructor(g, s) {
+        if (Array.isArray(sources)) {
+            for (var s of sources) {
+                if (!this.marked[s]) this.dfs(g, s);
+            }
+        } else {
+            this.dfs(g, s);
+        }
+    }
+    dfs(g, v) {
+        this._marked[v] = true;
+        for (var w of g.adj(v)) {
+            if (!this._marked[w]) this.dfs(g, w);
+        }
+    }
+    marked(v) {
+        return this._marked[v];
+    }
+}
