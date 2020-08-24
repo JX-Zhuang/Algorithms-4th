@@ -329,3 +329,39 @@ class DirectedDFS {
         return this._marked[v];
     }
 }
+
+class DirectedCycle {
+    _marked = [];
+    _edgTo = [];
+    _cycle;
+    _onStack = [];
+    constructor(g) {
+        for (var v = 0; v < g.V(); v++) {
+            if (!this._marked[v]) this.dfs(g, v);
+        }
+    }
+    dfs(g, v) {
+        this._onStack[v] = true;
+        this._marked[v] = true;
+        for (var w of g.adj(v)) {
+            if (this.hasCycle()) return;
+            else if (!this._marked[v]) {
+                this._edgTo[w] = v;
+                this.dfs(g, w);
+            } else if (this._onStack[w]) {
+                this._cycle = [];
+                for (var x = v; x != w; x = this._edgTo[x]) {
+                    this._cycle.push(x);
+                }
+                this._cycle.push(w);
+                this._cycle.push(v);
+            }
+        }
+    }
+    hasCycle() {
+        return !!this._cycle;
+    }
+    cycle() {
+        return this.cycle;
+    }
+}
