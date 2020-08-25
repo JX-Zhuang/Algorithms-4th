@@ -365,3 +365,34 @@ class DirectedCycle {
         return this.cycle;
     }
 }
+class DepthFirstOrder {
+    _marked = [];
+    _pre = [];
+    _post = [];
+    _reversePost = [];
+    constructor(g) {
+        for (var v = 0; v < g.V(); v++) {
+            if (!this._marked[v]) this.dfs(g, v);
+        }
+    }
+    dfs(g, v) {
+        this._pre.push(v);
+        this._marked[v] = true;
+        for (var w of g.adj(v)) {
+            if (!this._marked[w]) {
+                this.dfs(g, w);
+            }
+        }
+        this._post.push(v);
+        this._reversePost.unshift(v);
+    }
+    pre() {
+        return this._pre;
+    }
+    post() {
+        return this._post;
+    }
+    reversePost() {
+        return this._reversePost;
+    }
+}
