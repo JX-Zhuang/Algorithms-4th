@@ -13,13 +13,14 @@ var merge = function (tempArr, arr, left, mid, right) {
 }
 var mergeSort = function (arr) {
     var tempArr = new Array(arr.length);
-    var sort = function (left, mid, right) {
+    var sort = function (left, right) {
         if (left >= right) return;
-        sort(left, middle(left, mid), mid);
-        sort(mid + 1, middle(mid + 1, right), right);
+        const mid = middle(left, right);
+        sort(left, mid);
+        sort(mid + 1, right);
         merge(tempArr, arr, left, mid, right);
     }
-    sort(0, middle(0, arr.length - 1), arr.length);
+    sort(0, arr.length);
     return arr;
 };
 test(mergeSort);
