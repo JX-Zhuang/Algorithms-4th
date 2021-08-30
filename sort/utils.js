@@ -15,7 +15,9 @@ var genArr = (l = 100) => {
     return arr;
 }
 var test = (sort) => {
-    const result = check(sort(genArr()));
+    const arr = genArr();
+    sort(arr);
+    const result = check(arr);
     console.log(result);
 }
 var swap = (arr, i, j) => {
