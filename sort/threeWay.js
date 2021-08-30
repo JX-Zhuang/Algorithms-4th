@@ -3,11 +3,11 @@ var threeWay = function (arr) {
     var sort = function (low, high) {
         if (high <= low) return;
         var lt = low, gt = high;
-        var v = arr[low];
         var i = low;
+        var v = arr[low];
         while (i <= gt) {
-            if (v < arr[i]) swap(arr, i, gt--);
-            else if (v > arr[i]) swap(arr, i++, lt++);
+            if (arr[i] > v) swap(arr, i, gt--);
+            else if (arr[i] < v) swap(arr, i++, lt++);
             else i++;
         }
         sort(low, lt - 1);
