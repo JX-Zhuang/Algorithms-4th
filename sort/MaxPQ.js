@@ -15,6 +15,9 @@ class MaxPQ {
             this.pq = new Array(param + 1);
             this.n = 0;
         }
+        this.check();
+    }
+    check() {
         if (this.isMaxHeapOrdered(1)) {
             console.log('Max PQ');
         } else {
@@ -56,6 +59,7 @@ class MaxPQ {
             this.exch(k >> 1, k);
             k >>= 1;
         }
+        this.check();
     }
     less(a, b) {
         return this.pq[a] < this.pq[b];
@@ -74,15 +78,18 @@ class MaxPQ {
     }
     order() {
         const copy = [...this.pq];
-        const arr = [];
+        const arr = [], n = this.n;
         while (this.n) {
             arr.push(this.delMax());
         }
         this.pq = copy;
+        this.n = n;
         return arr;
     }
 }
-const maxPQ = new MaxPQ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+// const maxPQ = new MaxPQ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+const maxPQ = new MaxPQ(10);
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach(item => maxPQ.insert(item))
 test(function (arr) {
     const maxPQ = new MaxPQ(arr);
     const result = maxPQ.order();
