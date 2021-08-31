@@ -15,9 +15,10 @@ class MaxPQ {
             this.pq = new Array(param + 1);
             this.n = 0;
         }
-        if(this.isMaxHeapOrdered(1)){
+        if (this.isMaxHeapOrdered(1)) {
             console.log('Max PQ');
-        }else{
+        } else {
+            console.log(this.pq);
             throw new Error('Max PQ');
         }
     }
@@ -81,6 +82,7 @@ class MaxPQ {
         return arr;
     }
 }
+const maxPQ = new MaxPQ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 test(function (arr) {
     const maxPQ = new MaxPQ(arr);
     const result = maxPQ.order();
