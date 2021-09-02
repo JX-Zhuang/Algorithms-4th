@@ -15,7 +15,14 @@ class BST {
 
     }
     get(key) {
-
+        const get = (node) => {
+            if (!node) return null;
+            const compare = key.localeCompare(node.key);
+            if (compare < 0) return get(node.left);
+            if (compare > 0) return get(node.right);
+            return node.val;
+        }
+        return get(this.root);
     }
     put(key, val) {
         const put = (node, key, val) => {
@@ -71,11 +78,15 @@ class BST {
         return result;
     }
 }
-const bst = new BST();
-bst.put('b', 'b');
-bst.put('a', 'a');
-bst.put('d', 'd');
-bst.put('y', 'y');
-bst.put('z', 'z');
-console.log(bst.root);
-bst.inorder();
+const test = () => {
+    const bst = new BST();
+    bst.put('b', '1b');
+    bst.put('a', '2a');
+    bst.put('d', '3d');
+    bst.put('y', '4y');
+    bst.put('z', '5z');
+    console.log(bst.get('y'));
+    console.log(bst.get('d'));
+    console.log(bst.get('s'));
+};
+test();
