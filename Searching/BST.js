@@ -11,8 +11,38 @@ class BST {
     constructor() {
         this.root = null;
     }
-    delete(key) {
+    min(node) {
+        if (!node.left) return node;
+        return this.min(node.left);
+    }
+    deleteMin(node) {
+        if (!node.left) return node.right;
+        node.left = this.deleteMin(node.left);
+        node.size = this.size(node.left) + this.size(node.right) + 1;
+        return node;
+    }
+    deleteMax() {
 
+    }
+    delete(key) {
+        const remove = (node) => {
+            if (!node) return null;
+            const compare = key.localeCompare(node.key);
+            if (compare < 0) node.left = remove(node.left);
+            else if (compare > 0) node.right = remove(node.right);
+            else {
+                if (!node.left) return node.right;
+                if (!node.right) return node.left;
+                const temp = node;
+                node = this.min(temp.right);
+                node.right = this.deleteMin(temp.right);
+                node.left = temp.left;
+            }
+            node.size = 1 + this.size(node.left) + this.size(node.right);
+            return node;
+        };
+        this.root = remove(this.root);
+        this.check();
     }
     get(key) {
         const get = (node) => {
@@ -88,5 +118,7 @@ const test = () => {
     console.log(bst.get('y'));
     console.log(bst.get('d'));
     console.log(bst.get('s'));
+    bst.delete('b');
+    bst.inorder();
 };
 test();
