@@ -15,6 +15,10 @@ class BST {
         if (!node.left) return node;
         return this.min(node.left);
     }
+    max(node) {
+        if (!node.right) return node;
+        return this.max(node.right);
+    }
     deleteMin(node) {
         if (!node.left) return node.right;
         node.left = this.deleteMin(node.left);
