@@ -21,8 +21,11 @@ class BST {
         node.size = this.size(node.left) + this.size(node.right) + 1;
         return node;
     }
-    deleteMax() {
-
+    deleteMax(node) {
+        if (!node.right) return node.left;
+        node.right = this.deleteMax(node.right);
+        node.size = this.size(node.left) + this.size(node.right) + 1;
+        return node;
     }
     delete(key) {
         const remove = (node) => {
