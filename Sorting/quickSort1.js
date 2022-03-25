@@ -1,11 +1,11 @@
 var { test, swap } = require('./utils');
 var quickSort = function (arr) {
     var partition = function (low, high) {
-        var i = low, j = high + 1;
+        var i = low + 1, j = high;
         while (true) {
-            while (arr[++i] < arr[low] && i <= high);
-            while (arr[--j] > arr[low] && j >= low);
-            if (i >= j) break;
+            while (arr[i] <= arr[low] && i <= j) i++;
+            while (arr[j] >= arr[low] && i <= j) j--;
+            if (j <= i) break;
             swap(arr, i, j);
         }
         swap(arr, low, j);
