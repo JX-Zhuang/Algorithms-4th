@@ -20,4 +20,4 @@ var quickSort = function (arr) {
     sort(arr, 0, arr.length - 1);
     return arr;
 };
-test(quickSort);
+test(quickSort,100000);

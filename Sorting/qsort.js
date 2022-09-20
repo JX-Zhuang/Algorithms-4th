@@ -25,4 +25,16 @@ var swap = function (nums, a, b) {
     nums[a] = nums[b];
     nums[b] = temp;
 };
-test(sortArray);
+// test(sortArray,1000000);
+var insertion = function(nums){
+    var l = nums.length;
+    for(var i = 1;i<l;i++){
+        var v = nums[i];
+        for(var j = i;j>0 && v<nums[j-1];j--){
+            nums[j] = nums[j-1];
+        }
+        nums[j] = v;
+    }
+    return nums;
+}
+test(insertion,1000000);

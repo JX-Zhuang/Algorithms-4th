@@ -14,9 +14,11 @@ var genArr = (l = 100) => {
     }
     return arr;
 }
-var test = (sort) => {
-    const arr = genArr();
+var test = (sort,l = 100) => {
+    const arr = genArr(l);
+    console.time('sort');
     sort(arr);
+    console.timeEnd('sort');
     const result = check(arr);
     console.log(result);
 }

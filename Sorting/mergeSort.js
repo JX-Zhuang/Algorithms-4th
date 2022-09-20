@@ -24,5 +24,4 @@ var mergeSort = function (arr) {
     sort(0, arr.length - 1);
     return arr;
 };
-console.log(mergeSort([1, 3, 5, 7, 0, 4, 6, 8]));
-test(mergeSort);
+test(mergeSort,10000000);

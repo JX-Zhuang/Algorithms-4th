@@ -19,4 +19,4 @@ var quickSort = function (arr) {
     };
     sort(0, arr.length - 1);
 };
-test(quickSort);
+test(quickSort,100000);

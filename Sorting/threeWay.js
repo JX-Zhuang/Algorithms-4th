@@ -15,4 +15,4 @@ var threeWay = function (arr) {
     };
     sort(0, arr.length - 1);
 };
-test(threeWay);
+test(threeWay,10000000);
